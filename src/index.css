@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --Main: #111827;
+    --Aside:#121c30;
+  }
+  
+  nav { background-color: var(--Main); }
+
+  aside { background-color: var(--Aside); }
+
+.NavarIcon{
+    @apply text-white hover:text-gray-300 px-3 py-2
+}
+
+.AsideMenu{
+    @apply block text-white hover:bg-gray-700 px-4 py-2 rounded mt-4 ;
+}
+.min-h-screen {
+    min-height: 90.1vh;
+}
+#SubmitId{
+    background-color: var(--Aside); 
+}
+#SubmitId:hover{
+    background-color: var(--Main);
+}
