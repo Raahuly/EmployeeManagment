@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, ChangeEvent } from "react"; 
+import React, { useState, FormEvent, ChangeEvent, useEffect } from "react"; 
 import NavBar from "./NavBar";
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -7,11 +7,36 @@ import 'react-toastify/dist/ReactToastify.css';
 const initialState = {
     USER: "",
     PSW: "",
-    PASSWORD: ""
+    PASSWORD: "",
+    RoleId: ""
 }
+
+type Role = {
+    RoleId : number;
+    RoleName : string;
+}
+
+
+
 
 function Register(){
     const [state, setState] = useState(initialState);
+    const [roles, setRoles] = useState<Role[]>([]);
+
+
+    useEffect(() => {
+        getAllRoles();
+    }, []);
+    
+    
+    const getAllRoles = async () => {
+        try {
+            const response = await axios.get<Role[]>("https://localhost:7186/api/Role");
+            setRoles(response.data);
+        } catch (error) {
+            console.error("Error fetching roles:", error);
+        }
+    }
 
     const RegisterCan = async(data : typeof initialState) => {
         debugger;
@@ -35,12 +60,12 @@ function Register(){
         }
     }
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = e.target;
         setState({ ...state, [id]: value });
     };
 
-    
+
     return (
         <>
             <div>
@@ -59,7 +84,15 @@ function Register(){
                             <label htmlFor="PASSWORD" className="block text-gray-700 font-semibold mb-2">CPASSWORD</label>
                             <input type="password" id="PASSWORD" name="PASSWORD" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-400" onChange={handleInputChange} value={state.PASSWORD} />
                         </div>
-                        
+                        <div className="mb-4">
+                            <label htmlFor="ROLE" className="block text-gray-700 font-semibold mb-2">Role</label>
+                            <select id="RoleId" multiple name="RoleId"  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-400" onChange={handleInputChange} value={state.RoleId}>
+                                <option value="">Select Role</option>
+                                {roles.map((role, index) => (
+                                    <option key={index} value={role.RoleId}>{role.RoleName}</option>
+                                ))}
+                            </select>
+                        </div>
                         <div className="mt-4 text-center">
                             <button id="SubmitId" className=" text-white font-bold py-2 px-4 border border-blue-700 rounded">
                                 Submit

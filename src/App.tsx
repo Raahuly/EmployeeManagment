@@ -9,7 +9,11 @@ import Table from './Components/Table.tsx';
 import Edit from './Components/Edit.tsx';
 import Details from './Components/Details.tsx';
 import Register from './Components/Register.tsx';
-import Login from './Components/Login.tsx'; // Import the Login component here
+import Login from './Components/Login.tsx'; 
+import Role from './Components/Role.tsx';
+import RoleTable from './Components/RoleTable.tsx';
+import RoleEdit from './Components/RoleEdit.tsx';
+
 
 function App() {
   const [decodedToken, setDecodedToken] = useState<any>(null);
@@ -39,7 +43,10 @@ function App() {
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/table/:id/edit" element={<Edit />} />
+          <Route path="/RoleTable/:id/edit" element={<RoleEdit />} />
           <Route path="/table/:id/Details" element={<Details />} />
+          <Route path="/Role" element={<Role />} />
+          <Route path="/RoleTable" element={<RoleTable />} />
         </Routes>
       </main>
     </>

@@ -32,7 +32,6 @@ const Edit = () => {
                 console.log(response.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
-                // Handle error gracefully, you can set default values or do nothing
             }
         };
           debugger;
